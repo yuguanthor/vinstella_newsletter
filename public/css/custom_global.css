@@ -1,0 +1,225 @@
+.box-pad{
+  padding:5px 10px;
+}
+.mar10{
+  margin:10px;
+}
+
+.center{text-align:center}
+.right{text-align:right}
+.left{text-align:left}
+
+.table-theme,
+.table-theme tr,
+.table-theme td,
+.table-theme th{
+  border:2px solid #7eb2d1;
+}
+.table-theme th{
+  border:3px solid #7eb2d1;
+  background:#D6E8F2;
+}
+
+.table-theme tr{
+  background: #b8d1f3;
+}
+.table-theme tr:nth-child(odd){
+  background: #F2F9FF;
+}
+.table-theme tr:nth-child(even){
+  background: #F7FBFE;
+}
+.table-theme .tr-total td{
+  font-size:20px;
+  background: #B1D8F5;
+}
+
+.btn-theme-float-right{
+  margin-top: -36px;
+  float:right;
+}
+
+
+.text-right{text-align:right;}
+.table-valign tbody tr td{
+    vertical-align: middle;
+}
+
+.logo-lg,.logo-mini{color:#0554BC;}
+.sidebar-menu li i{color:#1D9ADA}
+.sidebar-menu .header{color:#0D1608!important }
+.sidebar-menu li span{color:#1879F9}
+@media (min-width: 768px){
+  .sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>a>span:not(.pull-right), .sidebar-mini:not(.sidebar-mini-expand-feature).sidebar-collapse .sidebar-menu>li:hover>.treeview-menu {
+    border: 2px solid black;
+    border-left: none;
+  }
+}
+.info-box-text{
+  font-size:18px;
+}
+
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice{color:black}
+.checkbox-theme{
+  width:20px;
+  height:20px
+}
+.nav-bar-text{
+  position: relative;
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    border-right: 1px solid #d2d6de;
+    border-left: 1px solid #d2d6de;
+    border-right-width: 0;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    line-height: 20px;
+}
+
+.navbar-nav>.li-logout{}
+.navbar-nav>.li-logout>a{
+  color:black !important;
+  transition:color 0.3s;
+  transition:background 0.7s;
+}
+.navbar-nav>.li-logout>a:hover{
+  color:white !important;
+  background: #FF5050 !important;
+}
+
+@media (min-width: 768px){
+  .navbar-nav>li>nav-bar-text {
+      padding-top: 15px;
+      padding-bottom: 15px;
+  }
+}
+
+.tr-no-padding td{
+  padding:0px 10px !important;
+  font-style:italic;
+}
+.tr-body-header td, .tr-body-header{
+  background:#A6D7FF;
+  font-size:16px;
+}
+.table>thead>tr>th {
+  border-right:2px solid  #A6D7FF!important;
+  border-left:2px solid  #A6D7FF!important;
+  border-top:1px solid  #A6D7FF!important;
+  border-bottom:1px solid  #A6D7FF!important;
+}
+
+.italic{font-style:italic}
+.bold{font-weight:700}
+.rounded{
+  background:#E5E5E5;
+  padding:2px 6px;
+  border-radius:15px;
+}
+.mar-top-10{content:' ';margin-top:10px}
+
+.select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border: 1px solid #d2d6de !important;
+     border-radius: 0px !important;
+    height: 34px !important;
+}
+
+.select2-container--default{
+    background-color: #fff;
+     border-radius: 0px !important;
+    height: 34px !important;
+}
+
+.select2-selection--multiple {
+    background-color: #fff;
+    border: 1px solid #d2d6de !important;
+    border-radius: 0px !important;
+}
+
+.red{color:red;}
+.green{color:green;}
+
+
+.info-box-desc{
+  padding:2px 0px;
+  margin:2px 0px;
+}
+.text-theme-success{
+  font-family: "Arial";
+  color:#62D841;
+  padding:2px;
+  border:1px solid #71D550;
+  background:#C8F2BA;
+  border-radius:4px;
+  font-size:10px;
+  line-height: 15px;
+}
+.text-theme-pending{
+  font-family: "Arial";
+  color:#E76C11;
+  padding:2px;
+  border:1px solid #CF8F47;
+  background:#EED7BD;
+  border-radius:4px;
+  font-size:10px;
+  line-height: 15px;
+}
+
+.info-box-content {
+  padding: 5px 10px;
+  margin-left: 75px;
+}
+.info-box-icon{
+  width: 80px;
+}
+
+.table-small td, .table-small th{
+  padding:0px 2px!important;
+}
+
+.email-title-text{
+  font-size:20px;
+  padding:2px;
+}
+
+.ckeditor-wrapper-div{
+  border:1px solid grey;
+  padding:2px;
+  margin:5px 0px;
+}
+.ckeditor-custom-control-div{
+  padding:5px;
+  text-align:left
+}
+
+.attachment-wrapper{
+  border: 1px solid grey;
+  padding: 2px;
+}
+.inline{display:inline!important}
+.block{display:block!important}
+.greyout{color:#c4bcbc!important}
+
+
+.animate-lr{
+  -webkit-animation:linear infinite alternate;
+  -webkit-animation-name: run;
+  -webkit-animation-duration: 1s;
+}
+@-webkit-keyframes run {
+    0% { margin-left: 0;}
+    20%{ margin-left: 20px;}
+    40%{ margin-left : 0px;}
+    60%{ margin-right : 0px;}
+    80%{ margin-right : 20px;}
+    100%{ margin-right : 0;}
+}
+
+.alert-no-mail{
+  text-align: center;
+  width: 400px;
+  margin: 0 auto;
+}
