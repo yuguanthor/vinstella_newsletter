@@ -9,8 +9,12 @@ use Mail;
 
 class ApiController extends Controller
 {
+  public function __construct(){
+    $this->mail_limit_per_cron = 125;
+  }
 
   function send_newsletter(){
+    echo 'Start Send Newsletter function<br>';
     $mail_redirect = get_mail_redirect();
 
     $newsletter = DB::Table('newsletter')
@@ -18,10 +22,15 @@ class ApiController extends Controller
               ->where('Status',0)
               ->first();
 
-    if($newsletter == null){dd('No Pending Mail To Sent');}
+    if($newsletter == null){
+      echo('No Pending Mail To Sent');
+      exit;
+    }
 
      //check first
     $customer_lists = $this->get_newsletter_customer_lists($newsletter->id);
+
+    echo 'Get Customer Lists: '.count($customer_lists).'<br>';
 
     foreach($customer_lists as $d){
       $customer = DB::Table('customer')->where('id',$d->customer_id)->first();
@@ -54,6 +63,9 @@ class ApiController extends Controller
       ];
       set_global_newsletter_status($newsletter->id);
       set_global_newsletter_customer_queue_status($d->id,1);
+
+      echo 'Sending Mail to '.$data['to'].'<br>';
+
       Mail::send('emails.mail', $data, function($m) use ($data) {
         $m->to($data['to']);
         $m->subject($data['subject']);
@@ -63,6 +75,9 @@ class ApiController extends Controller
           }
         }
       });
+
+      echo '[Completed] Sent Mail to '.$data['to'].'<br>';
+
       DB::table('newsletter_customer')
       ->where('id',$d->id)
       ->update([
@@ -76,7 +91,7 @@ class ApiController extends Controller
 
     //check twice, save next loop time
     $customer_lists = $this->get_newsletter_customer_lists($newsletter->id);
-    echo 'success';
+    echo '---completed---';
   }//end of function
 
 
@@ -84,7 +99,7 @@ class ApiController extends Controller
     $customer =  DB::Table('newsletter_customer')
           ->where('newsletter_id',$nid)
           ->where('status',0)
-          ->limit(3)
+          ->limit( $this->mail_limit_per_cron )
           ->get();
     if(count($customer) == 0){
       DB::Table('newsletter')->where('id',$nid)->update(['status'=>'1']);
