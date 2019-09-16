@@ -11,6 +11,14 @@
   $pending_newsletter = DB::table('newsletter')->where('status',0)->get();
 
   $mail_redirect = get_mail_redirect();
+  $previous_cron = DB::table('cron_log')->orderBy('id','DESC')->first();
+  $next_cron = false;
+  if($previous_cron != null){
+    $previous_time = $previous_cron->start;
+    $next_cron = strtotime($previous_cron->start. '+ 15 minutes');
+    $next_cron = date('Y-m-d H:i:s',$next_cron);
+  }
+
 ?>
 
 @section('content')
@@ -51,6 +59,15 @@
         @empty
         <div class="alert alert-info alert-no-mail">No pending mail</div>
         @endforelse
+
+        <center>
+          [Next Cron Time: {{$next_cron}}]
+          <div>
+            <span class="minutes" id="minute">-</span> Minutes
+            <span class="seconds" id="second">-</span> Seconds
+          </div>
+        </center>
+
         <div class="col-md-12" style="border-top:1px solid black;margin-bottom:10px"></div>
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
@@ -66,4 +83,28 @@
         </div>
         <!-- /.col -->
       </div>
+@stop
+
+
+@section('js')
+<script>
+  $(function(){
+    var deadline = new Date("{{$next_cron}}").getTime();
+    var x = setInterval(function() {
+      var now = new Date().getTime();
+      var t = deadline - now;
+      var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((t % (1000 * 60)) / 1000);
+      document.getElementById("minute").innerHTML = minutes;
+      document.getElementById("second").innerHTML =seconds;
+      if (t < 0) {
+        clearInterval(x);
+        document.getElementById("minute").innerHTML ='0' ;
+        document.getElementById("second").innerHTML = '0'; }
+      }, 1000
+    );
+
+  })
+
+</script>
 @stop

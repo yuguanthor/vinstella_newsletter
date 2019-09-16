@@ -224,3 +224,20 @@ function get_mail_redirect(){
   }
   return $mail_redirect;
 }
+
+function log_cron($name, $id=null){
+  if($id == null){
+    $id = DB::Table('cron_log')->insertGetId([
+      'cron_name' => $name,
+      'created_at' => date('Y-m-d H:i:s'),
+      'start' => date('Y-m-d H:i:s'),
+    ]);
+    return $id;
+  }else{
+    DB::Table('cron_log')->where('id',$id)->update([
+      'end' => date('Y-m-d H:i:s')
+    ]);
+  }
+
+
+}

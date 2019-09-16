@@ -14,6 +14,8 @@ class ApiController extends Controller
   }
 
   function send_newsletter(){
+    $cron_id = log_cron('send_newsletter');
+
     echo 'Start Send Newsletter function<br>';
     $mail_redirect = get_mail_redirect();
 
@@ -24,6 +26,7 @@ class ApiController extends Controller
 
     if($newsletter == null){
       echo('No Pending Mail To Sent');
+      log_cron('send_newsletter',$cron_id);
       exit;
     }
 
@@ -92,6 +95,7 @@ class ApiController extends Controller
     //check twice, save next loop time
     $customer_lists = $this->get_newsletter_customer_lists($newsletter->id);
     echo '---completed---';
+    log_cron('send_newsletter',$cron_id);
   }//end of function
 
 
