@@ -24,6 +24,14 @@ function sel_customer_group(){
   return $data;
 }
 
+function sel_mail_status(){
+  return [
+    '0' => '0 | Pending',
+    '1' => '1 | Completed',
+    '2' => '2 | Error'
+  ];
+}
+
 function sel_mail_template(){
   $data = DB::table('mail_template')->pluck('name','id');
   return $data;
@@ -161,10 +169,7 @@ function MailQueue($mail_arr){
 	);
 }
 
-function newsletter_customer_count($id){
-  $count = DB::Table('newsletter_customer')->selectRaw('count(id) as cc')->where('newsletter_id',$id)->first()->cc;
-  return $count;
-}
+
 function newsletter_status_name($status){
   if($status == 0){return 'Pending';}
   if($status == 1){return 'Completed';}
@@ -172,15 +177,21 @@ function newsletter_status_name($status){
   return 'N/A';
 }
 
-function MailQueueSend(){
-
-}
 function set_global_newsletter_status($newsletter_id){
-  DB::Table('newsletter_to_send')->truncate();
-  DB::Table('newsletter_to_send')->insert(['newsletter_id'=>$newsletter_id]);
+  DB::Table('newsletter_to_send')->where('id',1)->update(['newsletter_id'=>$newsletter_id]);
 }
 
-function newsletter_count($id, $type){
+function set_global_newsletter_customer_queue_status($newsletter_customer_id,$isQueuing=0){
+  DB::Table('newsletter_to_send')
+  ->where('id',1)
+  ->update(['newsletter_customer_id'=>$newsletter_customer_id]);
+
+  DB::table('newsletter_customer')
+  ->where('id',$newsletter_customer_id)
+  ->update(['isQueuing'=>$isQueuing]);
+}
+
+function newsletter_count($id, $type=''){
   $count = DB::table('newsletter_customer')->where('newsletter_id',$id);
   if($type=='success'){
     $count->where('status',1);
@@ -197,6 +208,6 @@ function mail_log($mail_arr){
     'mail_to' => $mail_arr['to'],
     'subject' => $mail_arr['subject'],
     'body' => $mail_arr['body'],
-    'created_at' => date('Y-m-d')
+    'created_at' => date('Y-m-d H:i:s')
   ]);
 }

@@ -1,4 +1,4 @@
-<script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/4.12.1/full/ckeditor.js"></script>
 <script>
 $(function(){
    $('.btn-remove-attachment').click(function(){
@@ -25,7 +25,7 @@ $(function(){
     div.find('.btn-remove-attachment').show();
   });
 
-  CKEDITOR.replace('email-body',{height: 500});
+  CKEDITOR.replace('email-body',{height: 450});
 })//end of ready function
 
 //function

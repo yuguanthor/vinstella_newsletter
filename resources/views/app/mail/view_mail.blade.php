@@ -12,9 +12,15 @@
       <h4 class="box-title">Search</h4>
       <div class="box-body">
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label">Customer Group </label>
-          <div class="col-md-4">
-            {{Form::select('search[customer_group]',[] ,$search['customer_group']??null,['class'=>'form-control sel-group','placeholder'=>''])}}
+          <label class="col-sm-2 col-form-label">Newsletter Name</label>
+          <div class="col-md-2">
+            {{Form::text('search[name]' ,$search['name']??null,['class'=>'form-control','placeholder'=>''])}}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Status</label>
+          <div class="col-md-2">
+            {{Form::select('search[status]', sel_mail_status() ,$search['status']??null,['class'=>'form-control','placeholder'=>''])}}
           </div>
         </div>
 
@@ -43,9 +49,14 @@
         <tr>
           <td>{{$d->id}}</td>
           <td>{{$d->name}}</td>
-          <td class="center">{{ newsletter_customer_count($d->id) }}</td>
+          <td class="center">
+            {{ newsletter_count($d->id) }}
+            @if($d->status==0)
+             <i>(Pending: {{ newsletter_count($d->id,'pending') }})</i>
+            @endif
+          </td>
           <td class="center">{{ newsletter_status_name($d->status) }}</td>
-          <td>{{Html::link(url('mail/'.$d->id),'View',['class'=>'btn btn-sm btn-primary'])}}</td>
+          <td>{{Html::link(url('mail/'.$d->id),'View',['class'=>'btn btn-sm btn-link'])}}</td>
         </tr>
         @endforeach
         </tbody>

@@ -163,6 +163,12 @@ return [
             'url'  => '/admin/account/',
             'icon' => 'far fa-circle',
         ],
+         [
+            'text' => 'Mail Log',
+            'url'  => '/admin/mail_log',
+            'active' => ['/admin/mail_log','/admin/mail_log?*'],
+            'icon' => 'far fa-circle',
+        ],
         [
             'text' => 'Action Log',
             'url'  => '/admin/action_log',

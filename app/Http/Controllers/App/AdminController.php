@@ -102,10 +102,31 @@ class AdminController extends Controller
         }
       }
     }
-
-
-
     $data=$data->orderBy('id','DESC')->paginate(10);
     return view('app.admin.action_log',compact('data','search'));
   }
+
+  function mail_log(Request $request){
+    $search = $request->input('search');
+    $data = DB::table('mail_log');
+
+    foreach((array)$search as $k => $v){
+      if($v!=''){
+        if($k=='date'){
+          $data->whereRaw("( DATE_FORMAT(created_at,'%Y-%m-%d') = '".db_date($v)."' )");
+        }else{
+          $data->where($k,'like',"%$v%");
+        }
+      }
+    }
+    $data=$data->orderBy('id','DESC')->paginate(10);
+    return view('app.admin.mail_log',compact('data','search'));
+  }
+
+  function mail_log_body_html($id){
+    $data = DB::table('mail_log')->where('id',$id)->first();
+    if($data==null){abort(404);}
+    return view('app.admin.mail_log_body_html',compact('data'));
+  }
+
 }

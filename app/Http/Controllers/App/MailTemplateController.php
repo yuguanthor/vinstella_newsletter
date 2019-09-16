@@ -16,7 +16,7 @@ class MailTemplateController extends Controller
     return view('app.mail_template.view_template',compact('data'));
   }
   function create(Request $request){
-    return view('app.mail_template.form_template',compact('data'));
+    return view('app.mail_template.form_template');
   }
 
   function store(Request $request){

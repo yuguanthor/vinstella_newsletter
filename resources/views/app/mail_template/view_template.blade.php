@@ -1,14 +1,14 @@
 @extends('adminlte::page')
 
-@section('title', 'Mail Lists')
+@section('title', 'Mail Template Lists')
 
 @section('content_header')
-    <h1>View - Mail</h1>
+    <h1>View - Mail Template</h1>
 @stop
 
 @section('content')
   <div class="box box-primary box-pad" >
-    <h3 class="box-title">Mail Template Lists</h3>
+    <h3 class="box-title">Template Lists</h3>
     <a href="{{url('/mail_template/create')}}" class='btn btn-primary btn-theme-float-right' >Create Mail Template</a>
     <div class="box-body">
       <table class="table table-valign table-theme">

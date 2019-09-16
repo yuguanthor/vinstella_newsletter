@@ -11,8 +11,16 @@ class MailController extends Controller
   public function __construct(){$this->middleware('auth');}
 
   function index(Request $request){
-    $data = DB::Table('newsletter')->orderBy('id','DESC')->paginate(20);
-    return view('app.mail.view_mail',compact('data'));
+    $search = $request->input('search');
+
+    $data = DB::Table('newsletter');
+    foreach((array)$search as $k => $v){
+      if($v != ''){
+        $data->where($k,'like',"%$v%");
+      }
+    }
+    $data = $data->orderBy('id','DESC')->paginate(20);
+    return view('app.mail.view_mail',compact('data','search'));
   }
   function create(Request $request){
     $search=$request->input('search');
@@ -95,6 +103,15 @@ class MailController extends Controller
 
   }//end of store
 
+  function show(Request $request, $id){
+    $newsletter = DB::Table('newsletter')->where('id',$id)->first();
+    $newsletter_customer = DB::Table('newsletter_customer')
+    ->where('newsletter_id',$id)
+    ->orderBy('status','ASC')
+    ->orderBy('id','ASC')
+    ->get();
+    return view('app.mail.view_newsletter',compact('newsletter','newsletter_customer'));
+  }
 
   function newsletter_data($id){
     return DB::table('newsletter')->where('id',$id)->first();

@@ -25,6 +25,8 @@ class CustomerController extends Controller
           $data->where('c.ic',$v);
         }elseif($k=='customer_group'){
           $data->where('c.customer_group',$v);
+        }else{
+          $data->where($k,'like',"%$v%");
         }
       }
     }

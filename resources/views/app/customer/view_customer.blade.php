@@ -3,7 +3,7 @@
 @section('title', 'Customer Lists')
 
 @section('content_header')
-    <h1>View - Users</h1>
+    <h1>View - Customer</h1>
 @stop
 
 @section('content')
@@ -12,9 +12,15 @@
       <h4 class="box-title">Search</h4>
       <div class="box-body">
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label">Customer IC : </label>
+          <label class="col-sm-2 col-form-label">Customer Name : </label>
           <div class="col-md-4">
-            {{Form::select('search[ic]',sel_customer_lists(),$search['ic']??null,['class'=>'form-control sel-cust','placeholder'=>''])}}
+            {{Form::text('search[name]',$search['name']??null,['class'=>'form-control sel-cust','placeholder'=>''])}}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Customer Email : </label>
+          <div class="col-md-4">
+            {{Form::text('search[mail]',$search['mail']??null,['class'=>'form-control','placeholder'=>''])}}
           </div>
         </div>
         <div class="form-group row">
@@ -31,7 +37,7 @@
     </form>
   </div>
   <div class="box box-primary box-pad" >
-    <h3 class="box-title">Users Lists</h3>
+    <h3 class="box-title">Customer Lists</h3>
     <a href="{{url('/customer/create')}}" class='btn btn-primary btn-theme-float-right' >Add New</a>
     <div class="box-body">
       <table class="table table-hover table-theme table-valign">

@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Customer Lists')
+@section('title', 'Customer Import')
 
 @section('content_header')
-    <h1>View - Users</h1>
+    <h1>Customer Import</h1>
 @stop
 
 @section('content')
@@ -19,6 +19,7 @@
         </div>
       </div>
       <div class="box-footer text-right">
+        {{Html::link(url('download/customer_import_excel_layout'),'Excel Layout Download',['class'=>'btn btn-sm btn-default'])}}
         {{Form::Submit('Get File Data',['class'=>'btn btn-sm btn-info'])}}
       </div>
     {{Form::close()}}
