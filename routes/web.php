@@ -27,7 +27,8 @@ Route::resource('/admin/account',$app_path.'\AdminController');
 Route::get('/admin/action_log',$app_path.'\AdminController@action_log');
 Route::get('/admin/mail_log',$app_path.'\AdminController@mail_log');
 Route::get('/admin/mail_log/{id}/view_body_html',$app_path.'\AdminController@mail_log_body_html');
-
+Route::get('/admin/system_configuration',$app_path.'\AdminController@system_configuration');
+Route::post('/admin/system_configuration',$app_path.'\AdminController@update_system_configuration');
 ###AJAX
 Route::get('ajax/get_customer_info',$app_path.'\AjaxController@ajax_get_customer_info');
 Route::post('ajax/test_mail',$app_path.'\AjaxController@ajax_test_mail');

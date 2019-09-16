@@ -24,6 +24,17 @@ class AjaxController extends Controller
   }
 
   function ajax_test_mail(Request $request){
+    //check availability of test mail
+    $test_mail_config = DB::Table('system_configuration')->where('config_name','test_mail_account')->first();
+    if($test_mail_config==null){
+      return 'ERROR: Test Mail Account is not set yet.';
+    }
+
+    $to_email = $test_mail_config->config_value;
+    if( !filter_var($to_email, FILTER_VALIDATE_EMAIL)){
+      return 'ERROR: Invalid Test Mail Account.';
+    }
+
     $template_id = $request->template_id;
 
     //attachment overriding
@@ -54,8 +65,7 @@ class AjaxController extends Controller
         ];
     }
 
-    //Test <
-    $to_email = config('app.test_mail_account');
+
 
     $data = [
       'subject' => $request->input('subject'),
@@ -74,9 +84,6 @@ class AjaxController extends Controller
     });
 
     return $to_email;
-
-
-
   }//end of  function
 
 }

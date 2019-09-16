@@ -163,7 +163,13 @@ return [
             'url'  => '/admin/account/',
             'icon' => 'far fa-circle',
         ],
-         [
+        [
+            'text' => 'System Configuration',
+            'url'  => '/admin/system_configuration',
+            'active' => ['/admin/system_configuration'],
+            'icon' => 'far fa-circle',
+        ],
+        [
             'text' => 'Mail Log',
             'url'  => '/admin/mail_log',
             'active' => ['/admin/mail_log','/admin/mail_log?*'],

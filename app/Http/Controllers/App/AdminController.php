@@ -129,4 +129,31 @@ class AdminController extends Controller
     return view('app.admin.mail_log_body_html',compact('data'));
   }
 
+  function system_configuration(){
+    $this->create_sys_config('test_mail_account');
+    $sys_config = DB::table('system_configuration')->get();
+    return view('app.admin.system_configuration',compact('sys_config'));
+  }
+  function update_system_configuration(Request $request){
+    $config = $request->input('config');
+    foreach($config as $name => $value){
+      DB::Table('system_configuration')
+      ->where('config_name',$name)
+      ->update(['config_value' => $value]);
+    }
+
+    $summary = "System Configuration has been updated.";
+    log_action('Update',$summary);
+    \Session::flash('success',$summary);
+    return redirect()->back();
+  }
+  //create if not exists
+  function create_sys_config($config_name){
+    $chk = DB::Table('system_configuration')->where('config_name',$config_name)->first();
+    if($chk==null){
+      DB::Table('system_configuration')->insert(['config_name' => $config_name]);
+    }
+  }
+
+
 }

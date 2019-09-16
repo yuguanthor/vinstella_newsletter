@@ -55,7 +55,11 @@ function TestMail(){
     contentType : false,
     processData : false,
     success: function(data){
-      alert('Test Mail has been sent to '+data);
+      if( !validateEmail(data) ){
+        alert(data);
+      }else{
+        alert('Test Mail has been sent to '+data);
+      }
       hideLoading();
     }
   });

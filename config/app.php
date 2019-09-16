@@ -1,10 +1,6 @@
 <?php
 
 return [
-
-    //custom
-    'test_mail_account' => env('TEST_MAIL_ACCOUNT','luckboy5566@hotmail.com'),
-
     /*
     |--------------------------------------------------------------------------
     | Application Name
