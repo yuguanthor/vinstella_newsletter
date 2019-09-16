@@ -12,7 +12,11 @@
 ?>
 
 @section('content')
-    <h4>Newsletter on queue</h4>
+    <h4>
+      Newsletter on queue
+      {{Html::link(url('api/send_newsletter'),'Send Newsletter (Manual)',['class'=>'btn btn-sm btn-warning pull-right','target'=>'blank'])}}
+    </h4>
+
     <div class="row">
       @forelse($pending_newsletter as $d)
         <?php
