@@ -131,6 +131,7 @@ class AdminController extends Controller
 
   function system_configuration(){
     $this->create_sys_config('test_mail_account');
+    $this->create_sys_config('mail_redirect_account');
     $sys_config = DB::table('system_configuration')->get();
     return view('app.admin.system_configuration',compact('sys_config'));
   }

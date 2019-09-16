@@ -11,6 +11,8 @@ class ApiController extends Controller
 {
 
   function send_newsletter(){
+    $mail_redirect = get_mail_redirect();
+
     $newsletter = DB::Table('newsletter')
               ->orderBy('ID','ASC')
               ->where('Status',0)
@@ -45,7 +47,7 @@ class ApiController extends Controller
       $subject = $this->email_content_override($newsletter->subject, $customer);
 
       $data = [
-        'to' => config('app.test_mail_account'),
+        'to' => $mail_redirect==false ? $customer->email : $mail_redirect,
         'subject' => $subject,
         'body' => $body,
         'attachment' => $attachment

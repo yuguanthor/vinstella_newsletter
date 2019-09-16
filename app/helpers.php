@@ -211,3 +211,16 @@ function mail_log($mail_arr){
     'created_at' => date('Y-m-d H:i:s')
   ]);
 }
+
+
+function get_mail_redirect(){
+  $mail_redirect = false;
+  $config_redirect = DB::Table('system_configuration')->where('config_name','mail_redirect_account')->first();
+  if($config_redirect != null &&
+    filter_var($config_redirect->config_value , FILTER_VALIDATE_EMAIL)
+  ){
+    $needRedirect = true;
+    $mail_redirect = $config_redirect->config_value;
+  }
+  return $mail_redirect;
+}
