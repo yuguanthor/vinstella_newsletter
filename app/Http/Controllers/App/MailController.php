@@ -27,9 +27,11 @@ class MailController extends Controller
 
     $customer = [];
     if(isset($search['customer_group'])){
+
       $customer = DB::table('customer');
-      if($search['customer_group'] == 'N'){
-        $customer->whereRaw('(customer_group IS NULL OR customer_group="")');
+      if( in_array('N',$search['customer_group'])){
+        $customer->whereNull('customer_group');
+        $customer->orWhereIn('customer_group',$search['customer_group']);
       }else{
         $customer->whereIn('customer_group',$search['customer_group']);
       }
