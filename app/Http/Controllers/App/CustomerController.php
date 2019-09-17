@@ -24,7 +24,14 @@ class CustomerController extends Controller
         if($k=='ic'){
           $data->where('c.ic',$v);
         }elseif($k=='customer_group'){
-          $data->where('c.customer_group',$v);
+          if($v=='N'){
+            $data->whereRaw('(
+              c.customer_group IS NULL OR c.customer_group=""
+            )');
+          }else{
+            $data->where('c.customer_group',$v);
+          }
+
         }else{
           $data->where($k,'like',"%$v%");
         }

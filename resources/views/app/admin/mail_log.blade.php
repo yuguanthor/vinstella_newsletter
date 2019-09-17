@@ -39,7 +39,7 @@
   </div>
 
   <div class="box box-primary box-pad" >
-    <h3 class="box-title">Action Log Lists</h3>
+    <h3 class="box-title">Mail Log Lists</h3>
     <div class="box-body">
       <table class="table table-hover table-theme table-valign">
         <tr>

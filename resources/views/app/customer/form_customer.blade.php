@@ -41,7 +41,7 @@
         <div class="form-group row">
           <label  class="col-sm-2 col-form-label">Group : </label>
           <div class="col-md-4">
-            {{Form::select('customer_group',lists_customer_group(),null,['class'=>'form-control select2-group','required'])}}
+            {{Form::select('customer_group',lists_customer_group(),null,['class'=>'form-control select2-group','placeholder'=>''])}}
           </div>
         </div>
       <div class="box-footer text-right">
