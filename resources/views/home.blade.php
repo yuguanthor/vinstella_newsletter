@@ -41,7 +41,9 @@
           <div class="info-box">
             <span class="info-box-icon {{$bgColor}}"><i class="fa {{$icon}}"></i></span>
             <div class="info-box-content">
-              <span class="info-box-text">{{$d->name}}</span>
+              <span class="info-box-text">
+                <a href="{{ url('mail/'.$d->id)}}" target="blank">{{$d->name}}</a>
+              </span>
               <span class="info-box-number">
                   Total: {{ newsletter_count($d->id,'all') }}
                   <div class="info-box-desc">
@@ -59,14 +61,13 @@
         @empty
         <div class="alert alert-info alert-no-mail">No pending mail</div>
         @endforelse
-
-        <center>
+        <div class="col-md-12 text-right">
           [Next Cron Time: {{$next_cron}}]
           <div>
             <span class="minutes" id="minute">-</span> Minutes
             <span class="seconds" id="second">-</span> Seconds
           </div>
-        </center>
+        </div>
 
         <div class="col-md-12" style="border-top:1px solid black;margin-bottom:10px"></div>
         <div class="col-md-3 col-sm-6 col-xs-12">
