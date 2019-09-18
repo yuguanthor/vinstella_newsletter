@@ -19,7 +19,9 @@
         <div class="form-group row">
           <label  class="col-sm-2 col-form-label">Customer Group : </label>
           <div class="col-md-10">
-            {{Form::select('search[customer_group][]',sel_customer_group(),$customer_group,['class'=>'form-control select2-group','required','multiple'=>'true'])}}
+            @php( $sel_customer_group = sel_customer_group() )
+            @php( $sel_customer_group->prepend('All','A') )
+            {{Form::select('search[customer_group][]',$sel_customer_group,$customer_group,['class'=>'form-control select2-group','required','multiple'=>'true'])}}
           </div>
         </div>
         <!--

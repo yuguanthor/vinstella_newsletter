@@ -21,7 +21,6 @@ function sel_customer_group(){
           ')
           ->pluck('display','id');
   $data->prepend('No Group','N');
-  $data->prepend('All','A');
   return $data;
 }
 
