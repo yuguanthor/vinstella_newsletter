@@ -44,6 +44,16 @@
             {{Form::select('customer_group',lists_customer_group(),null,['class'=>'form-control select2-group','placeholder'=>''])}}
           </div>
         </div>
+
+        <div class="form-group row">
+          <label  class="col-sm-2 col-form-label">Status : </label>
+          <div class="col-md-1">
+            {{Form::select('status',[1=>1,0=>0],null,['class'=>'form-control ','required'])}}
+          </div>
+        </div>
+      </div>
+
+
       <div class="box-footer text-right">
         @if(isset($data))
           {{Form::submit('Update',['class'=>'btn btn-success'])}}

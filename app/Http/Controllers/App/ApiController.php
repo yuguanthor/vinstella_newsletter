@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
 use Mail;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class ApiController extends Controller
 {
@@ -62,7 +63,8 @@ class ApiController extends Controller
         'to' => $mail_redirect==false ? $customer->email : $mail_redirect,
         'subject' => $subject,
         'body' => $body,
-        'attachment' => $attachment
+        'attachment' => $attachment,
+        'unsubscribe_link' => unsubscribe_url($customer->id)
       ];
       set_global_newsletter_status($newsletter->id);
       set_global_newsletter_customer_queue_status($d->id,1);
@@ -133,6 +135,21 @@ class ApiController extends Controller
     $content = str_replace("[CUSTOMER_EMAIL]",$data->email, $content);
     $content = str_replace("[CUSTOMER_GROUP]", customer_group_name($data->customer_group), $content);
     return $content;
+  }
+
+
+  function unsubscribe($encryptedValue){
+    // Exception for decryption thrown in facade
+    try {
+      $id = decrypt($encryptedValue);
+    } catch (DecryptException $e) {
+      abort(404);
+    }
+
+    DB::Table('customer')->where('id',$id)->update(['status'=>0]);
+    $customer = DB::table('customer')->where('id',$id)->first();
+    if($customer==null){abort(404);}
+    return view('app.misc.mail_unsubscribe',compact('customer'));
   }
 
 }

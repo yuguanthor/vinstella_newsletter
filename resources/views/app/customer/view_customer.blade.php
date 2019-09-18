@@ -29,6 +29,12 @@
             {{Form::select('search[customer_group]',sel_customer_group(),$search['customer_group']??null,['class'=>'form-control sel-group','placeholder'=>''])}}
           </div>
         </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Status : </label>
+          <div class="col-md-1">
+            {{Form::select('search[status]',sel_status_lists(),$search['status']??null,['class'=>'form-control sel-cust','placeholder'=>'All'])}}
+          </div>
+        </div>
 
       </div>
       <div class="box-footer text-right">
@@ -46,6 +52,7 @@
           <th>Customer Name </th>
           <th>Email</th>
           <th>Customer Group</th>
+          <th class="center">Status</th>
           <th>Option</th>
         </tr>
         @foreach($data as $key => $d)
@@ -54,7 +61,7 @@
           <td>{{ $d->name }}</td>
           <td>{{ $d->email }}</td>
           <td>{{ $d->customer_group }} | {{ customer_group_name($d->customer_group) }}</td>
-
+          <td class="center">{!! html_status_icon($d->status) !!}</td>
           <td>{{ Html::link(url('customer/'.$d->id.'/edit'),'edit',['class'=>'btn btn-sm btn-success']) }}</td>
         </tr>
         @endforeach

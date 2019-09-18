@@ -46,6 +46,10 @@ function sel_customer_lists(){
   return $cust_list;
 }
 
+function sel_status_lists(){
+  return ['1' => '1', '0' => '0'];
+}
+
 function customer_name($ic){
   $d = DB::table('customer')->where('ic',$ic)->first();
   return $d==null ? 'N/A' : $d->name;
@@ -236,6 +240,8 @@ function log_cron($name, $id=null){
       'end' => date('Y-m-d H:i:s')
     ]);
   }
+}
 
-
+function unsubscribe_url($customer_id){
+  return url('api/unsubscribe_newsletter/'.encrypt($customer_id));
 }

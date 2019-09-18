@@ -19,6 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('send_newsletter','App\ApiController@send_newsletter');
 
+Route::get('unsubscribe_newsletter/{id}','App\ApiController@unsubscribe');
+
 Route::get('system_backup',function(){
   $db_username = config('database.connections.mysql.username');
   $db_password = config('database.connections.mysql.password');

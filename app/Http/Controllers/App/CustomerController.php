@@ -52,7 +52,7 @@ class CustomerController extends Controller
       'name'=> $post['name'],
       'email'=> $post['email'],
       'customer_group'=> $post['customer_group'],
-      //'ic'=> $post['ic'],
+      'status'=> $post['status'],
       'created_at' => date('Y-m-d'),
       'created_by' => \Auth::user()->id,
     ];
@@ -80,6 +80,7 @@ class CustomerController extends Controller
     ->update([
       'name'=>$post['name'],
       'email'=>$post['email'],
+      'status'=>$post['status'],
       'customer_group'=>$post['customer_group']
     ]);
 

@@ -1,4 +1,8 @@
-<script src="https://cdn.ckeditor.com/4.12.1/full/ckeditor.js"></script>
+<?php
+//<script src="https://cdn.ckeditor.com/4.12.1/full/ckeditor.js"></script>
+?>
+<script src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script>
+
 <script>
 $(function(){
    $('.btn-remove-attachment').click(function(){
@@ -25,7 +29,26 @@ $(function(){
     div.find('.btn-remove-attachment').show();
   });
 
-  CKEDITOR.replace('email-body',{height: 450});
+  CKEDITOR.editorConfig = function( config ) {
+    // Define changes to default configuration here. For example:
+    // config.language = 'fr';
+    // config.uiColor = '#AADC6E';
+
+  };
+  CKEDITOR.replace('email-body',{
+    height: 450,
+    filebrowserBrowseUrl: "{{ asset('vendor/kcfinder/browse.php') }}",
+    //filebrowserImageBrowseUrl : "{{ asset('vendor/cfinder/browse.php?opener=ckeditor&type=images') }}",
+    //filebrowserFlashBrowseUrl: "{{ asset('vendor/cfinder/browse.php?opener=ckeditor&type=flash') }}",
+
+    filebrowserUploadUrl: "{{ asset('vendor/kcfinder/upload.php?opener=ckeditor&type=files&format=json') }}",
+    filebrowserImageUploadUrl: "{{ asset('vendor/kcfinder/upload.php?opener=ckeditor&type=images&format=json') }}",
+    filebrowserImageUploadUrl: "{{ asset('vendor/kcfinder/upload.php?opener=ckeditor&type=flash&format=json') }}",
+    filebrowserUploadMethod: 'form'
+
+  });
+
+
 })//end of ready function
 
 //function
