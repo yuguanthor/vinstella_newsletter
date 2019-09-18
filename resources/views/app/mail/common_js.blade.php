@@ -29,22 +29,16 @@ $(function(){
     div.find('.btn-remove-attachment').show();
   });
 
-  CKEDITOR.editorConfig = function( config ) {
-    // Define changes to default configuration here. For example:
-    // config.language = 'fr';
-    // config.uiColor = '#AADC6E';
-
-  };
   CKEDITOR.replace('email-body',{
     height: 450,
     filebrowserBrowseUrl: "{{ asset('vendor/kcfinder/browse.php') }}",
+    extraPlugins: 'uploadimage',
     //filebrowserImageBrowseUrl : "{{ asset('vendor/cfinder/browse.php?opener=ckeditor&type=images') }}",
     //filebrowserFlashBrowseUrl: "{{ asset('vendor/cfinder/browse.php?opener=ckeditor&type=flash') }}",
     baseUrl: "{{url('asd')}}",
-    filebrowserUploadUrl: "{{ asset('vendor/kcfinder/upload.php?opener=ckeditor&type=files&format=json') }}",
-    filebrowserImageUploadUrl: "{{ asset('vendor/kcfinder/upload.php?opener=ckeditor&type=images&format=json') }}",
-    filebrowserImageUploadUrl: "{{ asset('vendor/kcfinder/upload.php?opener=ckeditor&type=flash&format=json') }}",
-    filebrowserUploadMethod: 'form'
+    filebrowserUploadUrl: "{!! asset('vendor/kcfinder/upload.php?opener=ckeditor&type=files&format=json') !!}",
+    filebrowserImageUploadUrl: "{!! asset('vendor/kcfinder/upload.php?opener=ckeditor&type=images&format=json') !!}",
+    filebrowserUploadMethod: 'form',
 
   });
 

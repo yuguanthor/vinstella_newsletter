@@ -87,6 +87,8 @@ class uploader {
   * @var string */
     protected $cms = "";
 
+    protected $outputFormat = 'js';
+
 /** Magic method which allows read-only access to protected or private class properties
   * @param string $property
   * @return mixed */
@@ -242,6 +244,11 @@ class uploader {
                 : path::url2fullPath($this->config['uploadURL']);
             $this->typeDir = "{$this->config['uploadDir']}/{$this->type}";
             $this->typeURL = "{$this->config['uploadURL']}/{$this->type}";
+        }
+
+        // Output Format
+        if (isset($_GET['format'])) {
+          $this->outputFormat = $_GET['format'];
         }
 
         // HOST APPLICATIONS INIT
@@ -754,28 +761,56 @@ class uploader {
                 $js = $this->$method($url, $message);
         }
 
-        if (!isset($js))
+        if ($this->outputFormat == 'json') {
+          header('Content-Type: application/json');
+          $json = $this->callBack_json($url, $message);
+          echo json_encode($json);
+        }
+        else {
+          if (!isset($js)) {
             $js = $this->callBack_default($url, $message);
+          }
+            header("Content-Type: text/html; charset={$this->charset}");
+            echo "$js";
+        }
+    }
 
-        header("Content-Type: text/html; charset={$this->charset}");
-        echo "<html><body>$js</body></html>";
+      protected function callBack_json($url, $message) {
+        $uploaded = !empty($url) ? 1 : 0;
+        $result = [
+        'uploaded' => $uploaded
+        ];
+        if ($uploaded) {
+            $result['url'] = $url;
+            $urlPieces = explode('/', $url);
+            end($urlPieces);
+            $fileNamekey = key($urlPieces);
+            $result['fileName'] = $urlPieces[$fileNamekey];
+        }
+        else {
+            $result['error'] = [
+            'message' => $message,
+            ];
+        }
+        return $result;
     }
 
     protected function callBack_ckeditor($url, $message) {
         $CKfuncNum = isset($this->opener['CKEditor']['funcNum']) ? $this->opener['CKEditor']['funcNum'] : 0;
         if (!$CKfuncNum) $CKfuncNum = 0;
-        return "<script type='text/javascript'>
-var par = window.parent,
-    op = window.opener,
-    o = (par && par.CKEDITOR) ? par : ((op && op.CKEDITOR) ? op : false);
-if (o !== false) {
-    if (op) window.close();
-    o.CKEDITOR.tools.callFunction($CKfuncNum, '$url', '$message');
-} else {
-    alert('$message');
-    if (op) window.close();
-}
-</script>";
+        return "<html><body><script type='text/javascript'>
+            var par = window.parent,
+                op = window.opener,
+                o = (par && par.CKEDITOR) ? par : ((op && op.CKEDITOR) ? op : false);
+            if (o !== false) {
+                if (op) window.close();
+                o.CKEDITOR.tools.callFunction($CKfuncNum, '$url', '$message');
+            } else {
+                alert('$message');
+                if (op) window.close();
+            }
+            </script></body></html>
+        ";
     }
 
     protected function callBack_fckeditor($url, $message) {
@@ -803,10 +838,13 @@ if (o !== false) {
     }
 
     protected function callBack_default($url, $message) {
-        return "<script type='text/javascript'>
-alert('$message');
-if (window.opener) window.close();
-</script>";
+        return "
+            <script type='text/javascript'>
+                alert('$message');
+                if (window.opener) window.close();
+            </script>
+        "
+        ;
     }
 
     protected function get_htaccess() {
