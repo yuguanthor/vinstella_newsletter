@@ -23,6 +23,7 @@ Route::resource('/customer',$app_path.'\CustomerController');
 
 
 ##admin
+Route::resource('/maintenance/customer_group',$app_path.'\CustomerGroupController');
 Route::resource('/admin/account',$app_path.'\AdminController');
 Route::get('/admin/action_log',$app_path.'\AdminController@action_log');
 Route::get('/admin/mail_log',$app_path.'\AdminController@mail_log');

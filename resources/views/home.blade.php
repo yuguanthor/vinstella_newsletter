@@ -27,7 +27,9 @@
       @if($mail_redirect!=false)
         <br><span class="italic small">* [All Mail Out will redirect to <b>{{$mail_redirect}}</b>]</span>
       @endif
+      <!--
       {{Html::link(url('api/send_newsletter'),'Send Newsletter (Manual)',['class'=>'btn btn-sm btn-warning pull-right','target'=>'blank'])}}
+      -->
     </h4>
 
     <div class="row">

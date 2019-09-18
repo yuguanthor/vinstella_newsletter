@@ -27,6 +27,11 @@
         {{Form::submit('Save',['class'=>'btn btn-success'])}}
       </div>
     {!! Form::Close() !!}
+    <p>
+      <b>mail_redirect_account</b> : Should Leave Empty. (If set, all mail will redirect to that email address)<br>
+      <b>test_mail_account</b> : Use to receive test mail in [Create New Newsletter] modules.<br>
+      **test mail is used, when you want to know how email look like (preview it).
+    <p>
   </div>
 
 @stop

@@ -32,6 +32,9 @@
     {{Form::open(array('url'=>'customer/import_data','files'=>'true','id'=>'FormImportData','class'=>'js-allow-double-submission'))}}
       <h3 class="box-title">File Data</h3>
       <div class="box-body">
+        <p>
+          If customer's email already <b>existed</b>, that customer will be <b>ignored</b> during import.
+        </p>
         <table class="table table-hover table-theme table-valign">
           <thead>
             <tr>

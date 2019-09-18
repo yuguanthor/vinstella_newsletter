@@ -97,7 +97,9 @@ class CustomerController extends Controller
   public function customer_import_file(Request $request){
     $validatedData = $request->validate(['file' => 'required|mimes:xlsx,xls']);
     $rows = Excel::load( $request->file,function($reader){})->get();
+
     foreach($rows as $d){
+      if($d['customer']==null){continue;}
       DB::table('customer_to_import')
       ->insert([
         'name' => $d['customer'],

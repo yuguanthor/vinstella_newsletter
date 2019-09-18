@@ -152,6 +152,13 @@ return [
             'icon'        => 'far fa-circle',
         ],
 
+        ['header' => 'Maintenance'],
+        [
+            'text' => 'Customer Group Lists',
+            'url'  => '/maintenance/customer_group/',
+            'icon' => 'far fa-circle',
+        ],
+
         ['header' => 'Admin'],
         [
             'text' => 'Add Admin Account',
@@ -169,6 +176,8 @@ return [
             'active' => ['/admin/system_configuration'],
             'icon' => 'far fa-circle',
         ],
+
+        ['header' => 'Logging'],
         [
             'text' => 'Mail Log',
             'url'  => '/admin/mail_log',
