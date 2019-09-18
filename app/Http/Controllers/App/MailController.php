@@ -32,6 +32,8 @@ class MailController extends Controller
       if( in_array('N',$search['customer_group'])){
         $customer->whereNull('customer_group');
         $customer->orWhereIn('customer_group',$search['customer_group']);
+      }elseif( in_array('A',$search['customer_group'])){
+        //get all
       }else{
         $customer->whereIn('customer_group',$search['customer_group']);
       }

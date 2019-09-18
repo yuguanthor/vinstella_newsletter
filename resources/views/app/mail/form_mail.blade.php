@@ -22,12 +22,22 @@
             {{Form::select('search[customer_group][]',sel_customer_group(),$customer_group,['class'=>'form-control select2-group','required','multiple'=>'true'])}}
           </div>
         </div>
+        <!--
+        <div class="form-group row">
+          <label  class="col-sm-2 col-form-label">Customer : </label>
+          <div class="col-md-10">
+            {{Form::select('search[customer][]',sel_customer_lists(),null,['class'=>'form-control select2-customer','required','multiple'=>'true'])}}
+          </div>
+        </div>
+        -->
 
         <div class="form-group row">
           <label  class="col-sm-2 col-form-label">Email Template : </label>
           <div class="col-md-10">
             {{Form::select('search[email_template]',sel_mail_template(),$email_template,['class'=>'form-control select2-template','placeholder'=>'Select a Template'])}}
+            <i>*Non-mandatory</i>
           </div>
+
         </div>
       </div>
       <div class="box-footer text-center">
@@ -41,7 +51,7 @@
     <h3 class="box-title">Prepare Newsletter</h3>
     {{Form::open(['url'=>'mail','id'=>'FormEmail','files'=>true])}}
       <div class="box-body">
-        <div class="col-md-2">
+        <div class="col-md-2 no-padding overflow-x">
           <table class="table table-theme table-valign table-striped table-small">
             <thead>
               <tr>
@@ -139,7 +149,11 @@
 <script>
 $(function(){
   $('.select2-group').select2({
-    placeholder:'Select Group',
+    placeholder:'Please select at least 1 group',
+    allowClear:true
+  });
+  $('.select2-customer').select2({
+    placeholder:'Please select at least 1 customer',
     allowClear:true
   });
   $('.select2-template').select2({

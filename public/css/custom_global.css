@@ -124,13 +124,13 @@
     background-color: #fff;
     border: 1px solid #d2d6de !important;
      border-radius: 0px !important;
-    height: 34px !important;
+    min-height: 34px !important;
 }
 
 .select2-container--default{
     background-color: #fff;
      border-radius: 0px !important;
-    height: 34px !important;
+    min-height: 34px !important;
 }
 
 .select2-selection--multiple {
@@ -223,3 +223,6 @@
   width: 400px;
   margin: 0 auto;
 }
+
+.no-padding{padding:0!important}
+.overflow-x{overflow-x:auto}

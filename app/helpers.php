@@ -21,6 +21,7 @@ function sel_customer_group(){
           ')
           ->pluck('display','id');
   $data->prepend('No Group','N');
+  $data->prepend('All','A');
   return $data;
 }
 
@@ -40,10 +41,9 @@ function sel_mail_template(){
 function sel_customer_lists(){
   $cust_list = \DB::Table('customer')
               ->selectRaw('
-                ic, CONCAT(ic, " - ", name) AS display
+                id, CONCAT(name," - ",email) AS display
               ')
-              ->groupBy('ic')
-              ->pluck('display','ic');
+              ->pluck('display','id');
   return $cust_list;
 }
 
