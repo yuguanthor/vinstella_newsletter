@@ -110,7 +110,7 @@ function attachment_override($request){
     }
     //template
     foreach($att as $c){
-      if($template==null){
+      if( !isset($template) || $template==null){
         $attachment_arr[$c] = [
          "name" => null,
          "path" => null,
