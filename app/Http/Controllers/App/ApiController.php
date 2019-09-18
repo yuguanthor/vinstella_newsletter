@@ -152,10 +152,18 @@ class ApiController extends Controller
     } catch (DecryptException $e) {
       abort(404);
     }
-
-    DB::Table('customer')->where('id',$id)->update(['status'=>0]);
     $customer = DB::table('customer')->where('id',$id)->first();
     if($customer==null){abort(404);}
+    if($customer->status == 1){
+      DB::Table('customer')->where('id',$id)->update(['status'=>0]);
+      DB::table('unsubscribe_log')->insert([
+        'customer_id' => $customer->id,
+        'customer_name' => $customer->name,
+        'customer_email' => $customer->email,
+        'customer_group' => $customer->customer_group,
+        'date' => date('Y-m-d H:i:s'),
+      ]);
+    }
     return view('app.misc.mail_unsubscribe',compact('customer'));
   }
 
