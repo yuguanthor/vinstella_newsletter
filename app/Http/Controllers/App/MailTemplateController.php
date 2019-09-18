@@ -21,10 +21,11 @@ class MailTemplateController extends Controller
 
   function store(Request $request){
     $post = $request->input();
+
     $template_id = DB::table('mail_template')->insertGetId([
       'name' => $post['name'],
       'subject' => $post['subject'],
-      'body' => $post['body'],
+      'body' => fixLocalSrc($post['body']),
       'created_at' => date('Y-m-d H:i:s'),
       'created_by' => \Auth::user()->id
     ]);
@@ -63,7 +64,7 @@ class MailTemplateController extends Controller
     ->update([
       'name' => $post['name'],
       'subject' => $post['subject'],
-      'body' => $post['body'],
+      'body' => fixLocalSrc($post['body']),
       'updated_at' => date('Y-m-d H:i:s'),
       'updated_by' => \Auth::user()->id
     ]);

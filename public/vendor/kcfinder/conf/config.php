@@ -24,6 +24,9 @@ $_CONFIG = array(
     'disabled' => true,
     'uploadURL' => "upload",
     'uploadDir' => "",
+    'baseUrl' => '/ckfinder/userfiles/',
+    'baseDir' => '/ckfinder/userfiles/',
+
     'theme' => "default",
 
     'types' => array(

@@ -46,6 +46,10 @@ class ApiController extends Controller
         $this->set_newsletter_error_message($d->id,'INVALID_EMAIL');
         continue;
       }
+      if( $customer->status==0 ){
+        $this->set_newsletter_error_message($d->id,'CUSTOMER_UNSUBSCRIBED');
+        continue;
+      }
 
       $attachment=[];
       foreach([1,2,3] as $v){
@@ -62,7 +66,7 @@ class ApiController extends Controller
       $data = [
         'to' => $mail_redirect==false ? $customer->email : $mail_redirect,
         'subject' => $subject,
-        'body' => $body,
+        'body' => fixLocalSrc($body),
         'attachment' => $attachment,
         'unsubscribe_link' => unsubscribe_url($customer->id)
       ];
@@ -119,6 +123,9 @@ class ApiController extends Controller
     }
     if($error == 'INVALID_EMAIL'){
       $status_text = 'Customer Email Invalid';
+    }
+    if($error == 'CUSTOMER_UNSUBSCRIBED'){
+      $status_text = 'Customer Unsubscribed Newsletter';
     }
 
     DB::table('newsletter_customer')

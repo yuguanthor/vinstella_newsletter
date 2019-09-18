@@ -38,6 +38,7 @@ class MailController extends Controller
         $customer->whereIn('customer_group',$search['customer_group']);
       }
 
+      $customer->where('status',1);//active customer only
       $customer = $customer->orderBy('customer_group')->get();
     }
 
@@ -65,7 +66,7 @@ class MailController extends Controller
     $insert = [
       'name' => $post['name'],
       'subject' => $post['subject'],
-      'body' => $post['body'],
+      'body' => fixLocalSrc($post['body']),
       'template_id'=> $post['template_id'] ?? null
     ];
     $newsletter_id = DB::Table('newsletter')->insertGetId($insert);

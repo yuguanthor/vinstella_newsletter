@@ -65,14 +65,12 @@ class AjaxController extends Controller
         ];
     }
 
-
-
     $data = [
       'subject' => $request->input('subject'),
-      'body' => $request->input('body'),
+      'body' => fixLocalSrc($request->input('body')),
       'attachment' => $attachment
     ];
-    //dd($data);
+
     Mail::send('emails.mail', $data, function($m) use ($to_email,$data) {
       $m->to($to_email);
       $m->subject("System Test Mail:".$data['subject']);

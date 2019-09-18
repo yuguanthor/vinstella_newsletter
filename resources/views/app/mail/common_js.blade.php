@@ -40,7 +40,7 @@ $(function(){
     filebrowserBrowseUrl: "{{ asset('vendor/kcfinder/browse.php') }}",
     //filebrowserImageBrowseUrl : "{{ asset('vendor/cfinder/browse.php?opener=ckeditor&type=images') }}",
     //filebrowserFlashBrowseUrl: "{{ asset('vendor/cfinder/browse.php?opener=ckeditor&type=flash') }}",
-
+    baseUrl: "{{url('asd')}}",
     filebrowserUploadUrl: "{{ asset('vendor/kcfinder/upload.php?opener=ckeditor&type=files&format=json') }}",
     filebrowserImageUploadUrl: "{{ asset('vendor/kcfinder/upload.php?opener=ckeditor&type=images&format=json') }}",
     filebrowserImageUploadUrl: "{{ asset('vendor/kcfinder/upload.php?opener=ckeditor&type=flash&format=json') }}",

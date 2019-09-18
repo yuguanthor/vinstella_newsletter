@@ -245,3 +245,9 @@ function log_cron($name, $id=null){
 function unsubscribe_url($customer_id){
   return url('api/unsubscribe_newsletter/'.encrypt($customer_id));
 }
+
+function fixLocalSrc($body){
+  $url= url('').'/';
+  $body = str_replace('src="/','src="'.$url,$body);
+  return $body;
+}
