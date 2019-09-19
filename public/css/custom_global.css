@@ -226,3 +226,14 @@
 
 .no-padding{padding:0!important}
 .overflow-x{overflow-x:auto}
+
+.side-email-lists{
+  position: absolute;
+  background: #E9E9E9;
+  opacity: 0.95;
+  z-index: 10000;
+  top: 105px;
+  padding:20px;
+  overflow-y:auto;
+  height:500px;
+}

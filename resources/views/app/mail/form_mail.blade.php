@@ -1,6 +1,5 @@
 @extends('adminlte::page')
 
-
 @section('title', 'Newsletter')
 
 @section('content_header')
@@ -24,14 +23,6 @@
             {{Form::select('search[customer_group][]',$sel_customer_group,$customer_group,['class'=>'form-control select2-group','required','multiple'=>'true'])}}
           </div>
         </div>
-        <!--
-        <div class="form-group row">
-          <label  class="col-sm-2 col-form-label">Customer : </label>
-          <div class="col-md-10">
-            {{Form::select('search[customer][]',sel_customer_lists(),null,['class'=>'form-control select2-customer','required','multiple'=>'true'])}}
-          </div>
-        </div>
-        -->
 
         <div class="form-group row">
           <label  class="col-sm-2 col-form-label">Email Template : </label>
@@ -52,13 +43,20 @@
   <div class="box box-primary box-pad clearfix">
     <h3 class="box-title">Prepare Newsletter</h3>
     {{Form::open(['url'=>'mail','id'=>'FormEmail','files'=>true])}}
+      <div class="box-header">
+        <button class="btn btn-sm btn-default toggle-email-lists" type="button" data-toggle="collapse" data-target="#collapseEmailLists" aria-expanded="false" aria-controls="collapseExample">
+          <i class="fa fa-bars"></i> Email To Send ( <span class="customer_chk_count">{{$customer->count()}}</span> )
+        </button>
+      </div>
       <div class="box-body">
-        <div class="col-md-2 no-padding overflow-x">
+
+        <div id="collapseEmailLists" class="collapse side-email-lists">
           <table class="table table-theme table-valign table-striped table-small">
             <thead>
               <tr>
                 <th>{{Form::checkbox('',1,1,['class'=>'chk-all'])}}</th>
                 <th>Email ({{$customer->count()}})</th>
+                <th>Name</th>
               </tr>
             </thead>
             @php($setGroup='')
@@ -68,18 +66,21 @@
                   <tr>
                     <td></td>
                     <td>{{$d->customer_group}} | {{customer_group_name($d->customer_group)}} </td>
+                    <td></td>
                   </tr>
                 @endif
                 <tr>
                   <td>{{Form::checkbox('customer_id[]',$d->id,1,['class'=>'chk-child'])}}</td>
                   <td>{{$d->email}}</td>
+                  <td>{{$d->name}}</td>
                 </tr>
                 @php($setGroup=$d->customer_group)
               @endforeach
             </tbody>
           </table>
         </div>
-        <div class="col-md-10">
+
+        <div class="col-md-12">
           <span class="email-title-text">Newsletter Name <i>(For display in dashboard/reference only)</i></span>
           {{Form::text('name',$template->subject??null,['class'=>'form-control','required','placeholder'=>'Newsletter Name'])}}
           <br><br>
@@ -143,8 +144,6 @@
   @endif
 
 
-
-
 @stop
 @section('js')
 @include('app.mail.common_js')
@@ -165,11 +164,36 @@ $(function(){
   $('.chk-all').change(function(){
     var chk = $(this).is(':checked');
     $('.chk-child').prop('checked',chk);
+    updateChkCount();
   })
+  $('.chk-child').change(function(){
+    updateChkCount();
+  });
+
+  $(document).click(function (event) {
+    var clickover = $(event.target);
+    var _opened = $("#collapseEmailLists").hasClass("in");
+    if (
+      _opened === true && !clickover.hasClass("side-email-lists") &&
+      !$(event.target).closest('#collapseEmailLists').length
+    ) {
+      $('#collapseEmailLists').collapse('toggle');
+    }
+  });
+
+  CKEDITOR.instances['email-body'].on('contentDom', function() {
+      this.document.on('click', function(event){
+          //your code
+          $('#collapseEmailLists').collapse('hide');
+      });
+  });
+
 });
 
-function QueueMail(){
-
+function updateChkCount(){
+  var count = $('.chk-child').filter(':checked').length;
+  $('.customer_chk_count').html(count);
 }
+
 </script>
 @stop
