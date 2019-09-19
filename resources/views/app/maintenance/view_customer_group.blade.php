@@ -25,7 +25,7 @@
         </tr>
         @foreach($data as $key => $d)
         <tr>
-          <td>{{ $data->firstItem() + $key }}</td>
+          <td>{{ $d->id }}</td>
           <td>{{ $d->group_name }}</td>
         </tr>
         @endforeach
