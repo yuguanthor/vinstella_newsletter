@@ -15,8 +15,8 @@ Route::resource('/mail',$app_path.'\MailController');
 Route::get('/download/mail_template_attachment',$app_path.'\DownloadController@download_mail_template_attachment');
 Route::get('/download/customer_import_excel_layout',$app_path.'\DownloadController@download_customer_import_excel_layout');
 
-##customer
-Route::post('/customer/import_file',$app_path.'\CustomerController@customer_import_file');
+##customer//customer/import/clear
+Route::get('/customer/import/clear',$app_path.'\CustomerController@clear_import_data');
 Route::post('/customer/import_data',$app_path.'\CustomerController@customer_import_data');
 Route::get('/customer/import',$app_path.'\CustomerController@customer_import');
 Route::resource('/customer',$app_path.'\CustomerController');

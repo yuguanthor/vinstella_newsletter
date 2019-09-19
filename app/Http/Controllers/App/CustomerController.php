@@ -138,4 +138,10 @@ class CustomerController extends Controller
     return redirect()->back();
   }
 
+  function clear_import_data(){
+    DB::Table('customer_to_import')->truncate();
+    \Session::flash('warning', 'Import Data has been cleared.');
+    return redirect('customer/import');
+  }
+
 }

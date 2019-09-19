@@ -58,8 +58,9 @@
           </tbody>
         </table>
       </div>
-      <div class="box-footer text-right">
-        {{Form::Submit('Import into System',['class'=>'btn btn-sm btn-info btn-import-data'])}}
+      <div class="box-footer">
+        {{Html::link(url('customer/import/clear'),'Clear Import Data',['class'=>'btn btn-sm btn-danger btn-import-data pull-left'])}}
+        {{Form::Submit('Import into System',['class'=>'btn btn-info btn-import-data pull-right'])}}
       </div>
     </form>
   </div>
