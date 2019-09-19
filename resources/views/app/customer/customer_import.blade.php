@@ -68,7 +68,9 @@
 
 @section('js')
 <script>
+showLoading();
 $(function(){
+  hideLoading();
   $('.chk-all').change(function(){
     var chk = $(this).is(':checked');
     $('.chk-child').prop('checked',chk);

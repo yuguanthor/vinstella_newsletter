@@ -122,18 +122,23 @@ class CustomerController extends Controller
       foreach($cus_lists as $d){
         //check exists
         $chkExists = DB::table('customer')->where('email',$d->email)->first();
-        if($chkExists){continue;}
+
+        if($chkExists){
+          DB::table('customer_to_import')->where('id',$d->id)->delete();
+          continue;
+        }
+
         $insert = [
           'name' => $d->name,
           'email' => $d->email,
           'customer_group' => $d->customer_group,
         ];
         DB::table('customer')->insert($insert);
+        DB::table('customer_to_import')->where('id',$d->id)->delete();
         $count++;
       }
     }
 
-    DB::Table('customer_to_import')->truncate();
     \Session::flash('success', $count.' customer has been imported');
     return redirect()->back();
   }
