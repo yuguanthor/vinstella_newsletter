@@ -202,6 +202,9 @@ function newsletter_count($id, $type=''){
   if($type=='pending'){
     $count->where('status',0);
   }
+  if($type=='error'){
+    $count->where('status',2);
+  }
   return $count->count();
 }
 

@@ -11,7 +11,7 @@ use Illuminate\Contracts\Encryption\DecryptException;
 class ApiController extends Controller
 {
   public function __construct(){
-    $this->mail_limit_per_cron = 125;
+    $this->mail_limit_per_cron = 600;
   }
 
   function send_newsletter(){

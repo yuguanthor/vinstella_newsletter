@@ -149,7 +149,7 @@
 }
 .text-theme-success{
   font-family: "Arial";
-  color:#62D841;
+  color:#1EC100;
   padding:2px;
   border:1px solid #71D550;
   background:#C8F2BA;
@@ -159,10 +159,20 @@
 }
 .text-theme-pending{
   font-family: "Arial";
-  color:#E76C11;
+  color:#989898;
   padding:2px;
-  border:1px solid #CF8F47;
-  background:#EED7BD;
+  border:1px solid #B0B0A0;
+  background:#E0E0D2;
+  border-radius:4px;
+  font-size:10px;
+  line-height: 15px;
+}
+.text-theme-error{
+  font-family: "Arial";
+  color:#AA0A0A;
+  padding:2px;
+  border:1px solid #D25656;
+  background:#E59E9E;
   border-radius:4px;
   font-size:10px;
   line-height: 15px;
@@ -236,4 +246,8 @@
   padding:20px;
   overflow-y:auto;
   height:500px;
+}
+
+.info-box {
+  height:90px !important;
 }

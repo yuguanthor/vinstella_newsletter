@@ -9,6 +9,7 @@
 <?php
   $admin_count = DB::table('users')->where('status',1)->get()->count();
   $pending_newsletter = DB::table('newsletter')->where('status',0)->get();
+  $recent_newsletter = DB::table('newsletter')->where('status','!=','0')->orderBy('ID','DESC')->limit(3)->get();
 
   $mail_redirect = get_mail_redirect();
   $previous_cron = DB::table('cron_log')->orderBy('id','DESC')->first();
@@ -48,9 +49,10 @@
               </span>
               <span class="info-box-number">
                   Total: {{ newsletter_count($d->id,'all') }}
-                  <div class="info-box-desc">
-                    <span class="pull-left text-theme-success">Success : {{ newsletter_count($d->id,'success') }}</span>
-                    <span class="pull-right text-theme-pending">Pending : {{ newsletter_count($d->id,'pending') }}</span>
+                  <div class="info-box-desc text-right">
+                    <span class="text-theme-success">Success : {{ newsletter_count($d->id,'success') }}</span>
+                    <span class="text-theme-error">Error : {{ newsletter_count($d->id,'error') }}</span>
+                    <span class="text-theme-pending">Pending : {{ newsletter_count($d->id,'pending') }}</span>
                   </div>
 
                 </span>
@@ -71,10 +73,41 @@
           </div>
         </div>
 
+        <!-- break -->
         <div class="col-md-12" style="border-top:1px solid black;margin-bottom:10px"></div>
+
+
+        <h4 class="col-md-12">Recent Completed Newsletter</h4>
+        <!-- Recenetly -->
+        @foreach($recent_newsletter as $d)
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-blue"><i class="fa fa-envelope"></i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">
+                <a href="{{ url('mail/'.$d->id)}}" target="blank">{{$d->name}}</a>
+              </span>
+              <span class="info-box-number">
+                  Total: {{ newsletter_count($d->id,'all') }}
+                  <div class="info-box-desc text-right">
+                    <span class="text-theme-success">Success : {{ newsletter_count($d->id,'success') }}</span>
+                    <span class="text-theme-error">Error : {{ newsletter_count($d->id,'error') }}</span>
+                    <span class="text-theme-pending">Pending : {{ newsletter_count($d->id,'pending') }}</span>
+                  </div>
+                </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        @endforeach
+
+        <!-- break -->
+        <div class="col-md-12" style="border-top:1px solid black;margin-bottom:10px"></div>
+
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon bg-aqua"><i class="ion ion-ios-person"></i></span>
+            <span class="info-box-icon bg-blue"><i class="ion ion-ios-person"></i></span>
 
             <div class="info-box-content">
               <span class="info-box-text">Admin</span>

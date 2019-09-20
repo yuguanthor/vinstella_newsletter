@@ -118,9 +118,15 @@ class MailController extends Controller
     $newsletter_customer = DB::Table('newsletter_customer')
     ->where('newsletter_id',$id)
     ->orderBy('status','ASC')
-    ->orderBy('id','ASC')
-    ->get();
-    return view('app.mail.view_newsletter',compact('newsletter','newsletter_customer'));
+    ->orderBy('id','ASC');
+
+    $filter_status = $request->input('status');
+    if( $filter_status != null){
+      $newsletter_customer->where('status',$filter_status);
+    }
+
+    $newsletter_customer=$newsletter_customer->paginate(50);
+    return view('app.mail.view_newsletter',compact('id','newsletter','newsletter_customer'));
   }
 
   function newsletter_data($id){

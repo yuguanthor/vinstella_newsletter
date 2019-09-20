@@ -40,6 +40,9 @@
             <th>ID</th>
             <th>Name</th>
             <th class="center">Email Count</th>
+            <th class="center">Success</th>
+            <th class="center">Failure</th>
+            <th class="center">Pending</th>
             <th class="center">Status</th>
             <th>Options</th>
           </tr>
@@ -49,12 +52,10 @@
         <tr>
           <td>{{$d->id}}</td>
           <td>{{$d->name}}</td>
-          <td class="center">
-            {{ newsletter_count($d->id) }}
-            @if($d->status==0)
-             <i>(Pending: {{ newsletter_count($d->id,'pending') }})</i>
-            @endif
-          </td>
+          <td class="center">{{ newsletter_count($d->id) }}</td>
+          <td class="center">{{ newsletter_count($d->id,'success') }}</td>
+          <td class="center">{{ newsletter_count($d->id,'error') }}</td>
+          <td class="center">{{ newsletter_count($d->id,'pending') }}</td>
           <td class="center">{{ newsletter_status_name($d->status) }}</td>
           <td>{{Html::link(url('mail/'.$d->id),'View',['class'=>'btn btn-sm btn-link'])}}</td>
         </tr>
